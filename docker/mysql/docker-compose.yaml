@@ -1,0 +1,11 @@
+version: '3'
+services:
+  db:
+    image: mysql:latest
+    command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8m
+    restart: always
+    environment:
+      MYSQL_DATABASE: mydb
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "3306:3306"
