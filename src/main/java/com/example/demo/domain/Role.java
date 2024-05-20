@@ -20,6 +20,14 @@ public class Role {
 
     private String description;
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
     // Role -> one -> many User
     @OneToMany(mappedBy = "role")
     private List<User> users;
