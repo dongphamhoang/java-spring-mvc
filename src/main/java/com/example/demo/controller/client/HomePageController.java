@@ -44,7 +44,7 @@ public class HomePageController {
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerUser", new RegisterDTO());
-        return "/client/auth/register";
+        return "client/auth/register";
     }
 
     @PostMapping("/register")
@@ -53,7 +53,7 @@ public class HomePageController {
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return "/client/auth/register";
+            return "client/auth/register";
         }
 
         User user = this.userService.registerDTOtoUser(registerDTO);
@@ -69,7 +69,7 @@ public class HomePageController {
     @GetMapping("/login")
     public String getLoginPage(Model model) {
 
-        return "/client/auth/login";
+        return "client/auth/login";
     }
 
 }
