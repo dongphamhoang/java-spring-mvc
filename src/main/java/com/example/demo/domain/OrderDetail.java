@@ -15,7 +15,7 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long quantity;
-    private Long price;
+    private Double price;
 
     // order_id: Long
     @ManyToOne
@@ -42,11 +42,11 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    public Long getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
