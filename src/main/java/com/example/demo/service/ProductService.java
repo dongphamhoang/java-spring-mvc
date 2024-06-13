@@ -18,6 +18,7 @@ import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.OrderDetailRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.ProductRepository;
+import com.example.demo.service.specification.ProductSpecs;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -50,6 +51,10 @@ public class ProductService {
 
     public Page<Product> fetchProducts(Pageable page) {
         return this.productRepository.findAll(page);
+    }
+
+    public Page<Product> fetchProductsWithSpec(Pageable page, String name) {
+        return this.productRepository.findAll(ProductSpecs.nameLike(name), page);
     }
 
     public Optional<Product> fetchProductById(long id) {
