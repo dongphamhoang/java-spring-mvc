@@ -35,7 +35,7 @@
                                         </div>
 
                                         <hr />
-                                        <table class="table table-bordered table-hover">
+                                        <table class=" table table-bordered table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
@@ -46,9 +46,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:forEach var="user" items="${users}">
+                                                <c:forEach var="user" items="${users1}">
+
                                                     <tr>
-                                                        <td>${user.id}</td>
+                                                        <th>${user.id}</th>
                                                         <td>${user.email}</td>
                                                         <td>${user.fullName}</td>
                                                         <td>${user.role.name}</td>
@@ -57,14 +58,40 @@
                                                                 class="btn btn-success">View</a>
                                                             <a href="/admin/user/update/${user.id}"
                                                                 class="btn btn-warning  mx-2">Update</a>
-                                                            <a href="/admin/user/${user.id}"
+                                                            <a href="/admin/user/delete/${user.id}"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
+
                                                 </c:forEach>
 
                                             </tbody>
                                         </table>
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-center">
+                                                <li class="page-item">
+                                                    <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
+                                                        href="/admin/user?page=${currentPage - 1}"
+                                                        aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
+                                                    <li class="page-item">
+                                                        <a class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}"
+                                                            href="/admin/user?page=${loop.index + 1}">
+                                                            ${loop.index + 1}
+                                                        </a>
+                                                    </li>
+                                                </c:forEach>
+                                                <li class="page-item">
+                                                    <a class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
+                                                        href="/admin/user?page=${currentPage + 1}" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
                                     </div>
 
                                 </div>
@@ -74,11 +101,11 @@
                     </main>
                     <jsp:include page="../layout/footer.jsp" />
                 </div>
-
             </div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                 crossorigin="anonymous"></script>
             <script src="/js/scripts.js"></script>
+
         </body>
 
         </html>
