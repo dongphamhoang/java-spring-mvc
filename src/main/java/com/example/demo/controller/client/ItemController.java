@@ -167,7 +167,9 @@ public class ItemController {
 
         Pageable pageable = PageRequest.of(page - 1, 60);
 
-        Page<Product> prs = this.productService.fetchProducts(pageable);
+        Page<Product> prs = this.productService.fetchProductsWithSpec(pageable, productCriteriaDTO);
+
+        List<Product> products = prs.getContent().size() > 0 ? prs.getContent() : new ArrayList<Product>();
         // case 1
         // double min = minOptional.isPresent() ? Double.parseDouble(minOptional.get())
         // : 0;
@@ -197,7 +199,6 @@ public class ItemController {
         // List<String> price = Arrays.asList(priceOptional.get().split(","));
         // Page<Product> prs = this.productService.fetchProductsWithSpec(pageable,
         // price);
-        List<Product> products = prs.getContent();
 
         model.addAttribute("products", products);
         model.addAttribute("currentPage", page);
