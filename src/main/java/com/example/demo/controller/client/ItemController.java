@@ -19,6 +19,7 @@ import com.example.demo.domain.Cart;
 import com.example.demo.domain.CartDetail;
 import com.example.demo.domain.Product;
 import com.example.demo.domain.User;
+import com.example.demo.domain.dto.ProductCriteriaDTO;
 import com.example.demo.service.ProductService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -150,13 +151,12 @@ public class ItemController {
 
     @GetMapping("/products")
     public String getProductPage(Model model,
-            @RequestParam("page") Optional<String> pageOptional,
-            @RequestParam("name") Optional<String> nameOptional) {
+            ProductCriteriaDTO productCriteriaDTO) {
         int page = 1;
         try {
-            if (pageOptional.isPresent()) {
+            if (productCriteriaDTO.getPage().isPresent()) {
                 // convert from String to int
-                page = Integer.parseInt(pageOptional.get());
+                page = Integer.parseInt(productCriteriaDTO.getPage().get());
             } else {
                 // page = 1
             }
@@ -165,10 +165,38 @@ public class ItemController {
             // TODO: handle exception
         }
 
-        Pageable pageable = PageRequest.of(page - 1, 6);
+        Pageable pageable = PageRequest.of(page - 1, 60);
 
-        String name = nameOptional.isPresent() ? nameOptional.get() : "";
-        Page<Product> prs = this.productService.fetchProductsWithSpec(pageable, name);
+        Page<Product> prs = this.productService.fetchProducts(pageable);
+        // case 1
+        // double min = minOptional.isPresent() ? Double.parseDouble(minOptional.get())
+        // : 0;
+        // Page<Product> prs = this.productService.fetchProductsWithSpec(pageable, min);
+
+        // case 2
+        // double max = maxOptional.isPresent() ? Double.parseDouble(maxOptional.get())
+        // : 0;
+        // Page<Product> prs = this.productService.fetchProductsWithSpec(pageable, max);
+
+        // case 3
+        // String factory = factoryOptional.isPresent() ? factoryOptional.get() : "";
+        // Page<Product> prs = this.productService.fetchProductsWithSpec(pageable,
+        // factory);
+
+        // case 4
+        // List<String> factory = Arrays.asList(factoryOptional.get().split(","));
+        // Page<Product> prs = this.productService.fetchProductsWithSpec(pageable,
+        // factory);
+
+        // case 5
+        // String price = priceOptional.isPresent() ? priceOptional.get() : "";
+        // Page<Product> prs = this.productService.fetchProductsWithSpec(pageable,
+        // price);
+
+        // case 6
+        // List<String> price = Arrays.asList(priceOptional.get().split(","));
+        // Page<Product> prs = this.productService.fetchProductsWithSpec(pageable,
+        // price);
         List<Product> products = prs.getContent();
 
         model.addAttribute("products", products);
